@@ -1,7 +1,7 @@
 {
   "dsccViz": {
-    "gcsDevBucket": "gs://anvil-data-studio-react-starter-dev",
-    "gcsProdBucket": "gs://anvil-data-studio-react-starter",
+    "gcsDevBucket": "gs://data-studio-statistical-significance-table/dev",
+    "gcsProdBucket": "gs://data-studio-statistical-significance-table/prod",
     "jsFile": "index.js",
     "jsonFile": "index.json",
     "cssFile": "index.css",
@@ -14,8 +14,8 @@
     "push:prod": "dscc-scripts viz push -d prod",
     "update_message": "dscc-scripts viz update_message -f object",
     "start": "dscc-scripts viz start",
-    "deploy:dev": "yarn build:dev && yarn push:dev",
-    "deploy:prod": "yarn build:prod && yarn push:prod"
+    "deploy:dev": "npm run build:dev && npm run push:dev",
+    "deploy:prod": "npm run build:prod && npm run push:prod"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
@@ -23,7 +23,9 @@
     "@babel/preset-react": "^7.0.0",
     "@google/dscc": "^0.3.8",
     "@google/dscc-scripts": "^1.0.7",
-    "babel-loader": "^8.0.6"
+    "babel-loader": "^8.0.6",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5"
   },
   "dependencies": {
     "@emotion/core": "^10.0.14",

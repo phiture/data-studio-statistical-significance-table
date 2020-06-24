@@ -9,19 +9,19 @@ export const message = {
     DEFAULT: [
       {
         dimID: ['Campaign 1'],
-        metricID: [16, 329, 1],
+        metricID: [16, 329, 1, 34, 634, 4533],
       },
       {
         dimID: ['Campaign 2'],
-        metricID: [31, 1002, 4],
+        metricID: [31, 1002, 4, 5, 345, 4],
       },
       {
         dimID: ['Campaign 3'],
-        metricID: [51, 1231, 11],
+        metricID: [51, 77, 3, 0, 11, 0],
       },
       {
         dimID: ['Campaign 4'],
-        metricID: [41, 1522, 16],
+        metricID: [41, 1522, 16, 342, 346, 66],
       },
     ],
   },
@@ -50,6 +50,24 @@ export const message = {
       {
         id: 'qt_8isx6asdf0xvc',
         name: 'Conversions',
+        type: 'NUMBER',
+        concept: 'METRIC',
+      },
+      {
+        id: 'qt_8isx6asdf0xvd',
+        name: 'Control Conversion',
+        type: 'NUMBER',
+        concept: 'METRIC',
+      },
+      {
+        id: 'qt_8isx6asdf0xve',
+        name: 'Unique Recipients',
+        type: 'NUMBER',
+        concept: 'METRIC',
+      },
+      {
+        id: 'qt_8isx6asdf0xvf',
+        name: 'Control Entries',
         type: 'NUMBER',
         concept: 'METRIC',
       },
