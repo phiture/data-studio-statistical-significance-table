@@ -49,6 +49,8 @@ const statisticalSignificance = (params: Params) => {
     const control = completeSegment(params.control)
     const variant = completeSegment(params.variant)
     if (control.conversions > control.visitors || variant.conversions > variant.visitors) throw new Error('Conversions Is Greater Than Visitors')
+    if (control.visitors < 0 || control.conversions < 0 || variant.visitors < 0 || variant.conversions < 0) throw new Error('Data Contains Negative Values')
+    if (control.visitors === 0 || variant.visitors === 0) throw new Error('Visitors Cannot Be 0')
     const zScore = (control.conversionRate - variant.conversionRate) / Math.sqrt(Math.pow(standardError(control), 2) + Math.pow(standardError(variant), 2))
     return normDist(zScore)
 }
