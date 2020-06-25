@@ -50,7 +50,8 @@ const MyTable = props => {
       let cellText = 'N/A'
       if (!isNaN(controlVisitors) && !isNaN(controlConversions) && !isNaN(variantVisitors) && !isNaN(variantConversions)) {
         try {
-          cellText = calculateSignificance(calculationData)
+          const statSig = calculateSignificance(calculationData)
+          cellText = `${Math.floor(statSig * 100)}%`
         } catch (e) {
           log.error('Cannot calculate statistical significance.', calculationData, e.message)
         }
