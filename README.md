@@ -1,6 +1,6 @@
 # Data Studio Statistical Significance Table
 
-[gs://data-studio-statistical-significance-table/dev](https://storage.cloud.google.com/data-studio-statistical-significance-table/dev/manifest.json)
+[gs://data-studio-statistical-significance-table/prod](https://storage.cloud.google.com/data-studio-statistical-significance-table/prod/manifest.json)
 
 [github.com/phiture/data-studio-statistical-significance-table](https://github.com/phiture/data-studio-statistical-significance-table)
 
@@ -24,7 +24,7 @@
 
 ### Adding the table to your report
 1. [Add the table to your report by ID](https://support.google.com/datastudio/answer/9206527?hl=en#add-by-id),
-using `gs://data-studio-statistical-significance-table/dev` as the **Manifest path**.
+using `gs://data-studio-statistical-significance-table/prod` as the **Manifest path**.
 3. [Enable Community Visualizations in your data source](https://support.google.com/datastudio/answer/9206527?hl=en)
 4. Make sure you have a dimension or metric for each of the following (Note: Column naming must be exact):
 - **Unique Recipients**   - The number of non control group recipients
