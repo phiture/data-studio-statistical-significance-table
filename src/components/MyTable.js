@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import calculateSignificance from '../statisticalSignificance'
 import log from '../utils/log'
+import { getIndexes } from '../statSigTableHelper'
 
 import {DataContext} from '../utils/DataContext';
 
@@ -64,35 +65,10 @@ const MyTable = props => {
   };
 
   // Process fields (header row) to get indexes for significance calculation
-  const jsxHeaderCells = []
-  const statSigCellIndexes = {}
-  for (const i in allFields) {
-    // jsxHeaderCells
-    const field = allFields[i]
-    jsxHeaderCells.push(<th key={field.id}>{field.name}</th>)
-    // statSigIndexes
-    switch (field.name) {
-      case 'Conversions':
-        statSigCellIndexes.variantConversions = i
-        break
-      case 'Control Conversion':
-        statSigCellIndexes.controlConversions = i
-        break
-      case 'Unique Recipients':
-        statSigCellIndexes.variantVisitors = i
-        break
-      case 'Control Entries':
-        statSigCellIndexes.controlVisitors = i
-        break
-    }
-  }
-  let toCalculateSignificance = false
-  if (statSigCellIndexes.controlVisitors && statSigCellIndexes.controlConversions && statSigCellIndexes.variantVisitors && statSigCellIndexes.variantConversions) {
-    toCalculateSignificance = true
-  } else {
-    log.info('Missing required fields. The table will still work.')
-  }
-  if (toCalculateSignificance) jsxHeaderCells.push(<th key={'stat-sig'}>Statistical Significance</th>)
+  const jsxHeaderCells = allFields.map(field => <th key={field.id}>{field.name}</th>)
+  const statSigCellIndexes = getIndexes(allFields)
+  if (statSigCellIndexes) jsxHeaderCells.push(<th key={'stat-sig'}>Statistical Significance</th>)
+  else log.info('Missing required fields. The table will still work.', allFields)
 
   return (
     <table>
@@ -103,7 +79,7 @@ const MyTable = props => {
       </thead>
       <tbody>
         {tables.DEFAULT.map((row, i) => (
-          <tr key={i}>{getRow(row, toCalculateSignificance ? statSigCellIndexes : undefined)}</tr>
+          <tr key={i}>{getRow(row, statSigCellIndexes)}</tr>
         ))}
       </tbody>
     </table>
