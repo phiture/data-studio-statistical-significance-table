@@ -27,14 +27,74 @@
   ],
   "style": [
     {
-      "id": "config",
-      "label": "Config",
+      "id": "tableHeader",
+      "label": "Table header",
       "elements": [
         {
-          "id": "cellBackgroundColor",
-          "label": "Cell Background Color",
+          "id": "headerFontColor",
+          "label": "Header font color",
+          "type": "FONT_COLOR",
+          "defaultValue": {
+            "color": "#000000",
+            "opacity": 1
+          }
+        },
+        {
+          "id": "headerFontSize",
+          "label": "Header font size",
+          "type": "FONT_SIZE",
+          "defaultValue": 14
+        },
+        {
+          "id": "headerFontFamily",
+          "label": "Header font family",
+          "type": "FONT_FAMILY",
+          "defaultValue": "Roboto"
+        },
+        {
+          "id": "headerBackgroundColor",
+          "label": "Header background color",
           "type": "FILL_COLOR",
-          "defaultValue": "#D9D9D9"
+          "defaultValue": {
+            "color": "#28ef8f",
+            "opacity": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "tableBody",
+      "label": "Table body",
+      "elements": [
+        {
+          "id": "bodyFontColor",
+          "label": "Body font color",
+          "type": "FONT_COLOR",
+          "defaultValue": {
+            "color": "#000000",
+            "opacity": 1
+          }
+        },
+        {
+          "id": "bodyFontSize",
+          "label": "Body font size",
+          "type": "FONT_SIZE",
+          "defaultValue": 12
+        },
+        {
+          "id": "bodyFontFamily",
+          "label": "Body font family",
+          "type": "FONT_FAMILY",
+          "defaultValue": "Roboto"
+        },
+        {
+          "id": "bodyBackgroundColor",
+          "label": "Body background color",
+          "type": "FILL_COLOR",
+          "defaultValue": {
+            "color": "#ffffff",
+            "opacity": 0
+          }
         }
       ]
     }

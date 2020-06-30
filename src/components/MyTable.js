@@ -20,14 +20,40 @@ const MyTable = props => {
   // log.debug('table render', data)
   const allFields = fields.dimID.concat(fields.metricID);
 
-  // Use default value as an initial backup
-  const cellBackgroundColor =
-    style.cellBackgroundColor.value || style.cellBackgroundColor.defaultValue;
-
-  const tableStyle = css`
-    padding: 10px;
-    background: ${cellBackgroundColor.color};
-  `;
+  // Styling
+  const {
+    headerFontColor,
+    headerFontSize,
+    headerFontFamily,
+    headerBackgroundColor,
+    headerBorderColor,
+    bodyFontColor,
+    bodyFontSize,
+    bodyFontFamily,
+    bodyBackgroundColor,
+    bodyBorderColor
+  } = style
+  const tableHeaderStyle = css`
+    color: ${headerFontColor.value.color || headerFontColor.defaultValue.color};
+    font-size: ${headerFontSize.value || headerFontSize.defaultValue}px;
+    font-family: "${headerFontFamily.value || headerFontFamily.defaultValue}", "${headerFontFamily.defaultValue}", sans-serif;
+  `
+  // background-color must be set on the same element that has position: sticky
+  const tableHeaderCellStyle = css`
+    padding: 8px;
+    position: sticky;
+    top: 0;
+    background-color: ${headerBackgroundColor.value.color || headerBackgroundColor.defaultValue.color};
+  `
+  const tableBodyStyle = css`
+    color: ${bodyFontColor.value.color || bodyFontColor.defaultValue.color};
+    font-size: ${bodyFontSize.value || bodyFontSize.defaultValue}px;
+    font-family: "${bodyFontFamily.value || bodyFontFamily.defaultValue}", "${bodyFontFamily.defaultValue}", sans-serif;
+    background-color: ${bodyBackgroundColor.value.color || bodyBackgroundColor.defaultValue.color};
+  `
+  const tableBodyCellStyle = css`
+    padding: 8px;
+  `
 
   const getRow = (tableRow, ssi) => {
     const allColumns = tableRow.dimID.concat(tableRow.metricID);
@@ -44,7 +70,7 @@ const MyTable = props => {
           cellText = numberWithCommas(cellText)
           break
       }
-      rowCells.push(<td css={tableStyle} key={i}>
+      rowCells.push(<td css={tableBodyCellStyle} key={i}>
         {cellText}
       </td>)
     }
@@ -72,7 +98,7 @@ const MyTable = props => {
         // log.error('Invalid values (non numeric)', calculationData)
         cellToolTip = 'Invalid values (non numeric)'
       }
-      rowCells.push(<td css={tableStyle} title={cellToolTip} key='stat-sig'>{cellText}</td>)
+      rowCells.push(<td css={tableBodyCellStyle} title={cellToolTip} key='stat-sig'>{cellText}</td>)
     }
     return rowCells
   };
@@ -83,7 +109,7 @@ const MyTable = props => {
   for (const i in allFields) {
     // jsxHeaderCells
     const field = allFields[i]
-    jsxHeaderCells.push(<th key={field.id}>{field.name}</th>)
+    jsxHeaderCells.push(<th key={field.id} css={tableHeaderCellStyle}>{field.name}</th>)
     // statSigIndexes
     switch (field.name) {
       case 'Conversions':
@@ -106,16 +132,16 @@ const MyTable = props => {
   } else {
     log.info('Missing required fields. The table will still work.')
   }
-  if (toCalculateSignificance) jsxHeaderCells.push(<th key={'stat-sig'}>Statistical Significance</th>)
+  if (toCalculateSignificance) jsxHeaderCells.push(<th key={'stat-sig'} css={tableHeaderCellStyle}>Statistical Significance</th>)
 
   return (
     <table>
-      <thead>
+      <thead css={tableHeaderStyle}>
         <tr>
           {jsxHeaderCells}
         </tr>
       </thead>
-      <tbody>
+      <tbody css={tableBodyStyle}>
         {tables.DEFAULT.map((row, i) => (
           <tr key={i}>{getRow(row, toCalculateSignificance ? statSigCellIndexes : undefined)}</tr>
         ))}
