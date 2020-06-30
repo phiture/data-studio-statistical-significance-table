@@ -8,8 +8,9 @@ const log = {
         console.log(generateLogLine(level, message), ...logData)
     },
     dev: (...data: any[]) => {
-        if (PRODUCTION) console.log(generateLogLine(LogLevel.DEV, ''), ...data,)
+        if (PRODUCTION) console.log(generateLogLine(LogLevel.DEV, ''), ...data)
     },
+    debug: (message: string, data: any) => log.log(LogLevel.DEBUG, message, data),
     info: (message: string, data: any) => log.log(LogLevel.INFO, message, data),
     warn: (message: string, data: any) => log.log(LogLevel.WARN, message, data),
     error: (message: string, data: any, error: Error) => log.log(LogLevel.WARN, message, data, error),
@@ -22,6 +23,7 @@ const generateLogLine = (level: LogLevel, message: string) => {
 
 enum LogLevel {
     DEV = 'DEV',
+    DEBUG = 'DEBUG',
     INFO = 'INFO',
     WARN = 'WARN',
     ERROR = 'ERROR',
