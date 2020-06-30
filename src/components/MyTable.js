@@ -38,8 +38,8 @@ const MyTable = props => {
       let cellText = allColumns[i]
       switch (allFields[i].type) {
         case 'PERCENT':
-          cellText = `${Math.floor(cellText * 100)}%`
-          break;
+          cellText = `${numberWithCommas(Math.round(cellText * 10000) / 100)}%`  // Percent to 2 decimal places
+          break
         case 'NUMBER':
           cellText = numberWithCommas(cellText)
           break
