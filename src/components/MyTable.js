@@ -48,17 +48,20 @@ const MyTable = props => {
         variant: { visitors: variantVisitors, conversions: variantConversions },
       }
       let cellText = 'N/A'
+      let cellToolTip = false
       if (!isNaN(controlVisitors) && !isNaN(controlConversions) && !isNaN(variantVisitors) && !isNaN(variantConversions)) {
         try {
           const statSig = calculateSignificance(calculationData)
           cellText = `${Math.floor(statSig * 100)}%`
         } catch (e) {
-          log.error('Cannot calculate statistical significance.', calculationData, e.message)
+          // log.error('Cannot calculate statistical significance.', calculationData, e.message)
+          cellToolTip = e.message
         }
       } else {
-        log.error('Invalid values (non numeric)', calculationData)
+        // log.error('Invalid values (non numeric)', calculationData)
+        cellToolTip = 'Invalid values (non numeric)'
       }
-      rowCells.push(<td css={tableStyle}>{cellText}</td>)
+      rowCells.push(<td css={tableStyle} title={cellToolTip}>{cellText}</td>)
     }
     return rowCells
   };
