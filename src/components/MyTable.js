@@ -48,7 +48,7 @@ const MyTable = props => {
         variant: { visitors: variantVisitors, conversions: variantConversions },
       }
       let cellText = 'N/A'
-      let cellToolTip = false
+      let cellToolTip
       if (!isNaN(controlVisitors) && !isNaN(controlConversions) && !isNaN(variantVisitors) && !isNaN(variantConversions)) {
         try {
           const statSig = calculateSignificance(calculationData)
@@ -61,7 +61,7 @@ const MyTable = props => {
         // log.error('Invalid values (non numeric)', calculationData)
         cellToolTip = 'Invalid values (non numeric)'
       }
-      rowCells.push(<td css={tableStyle} title={cellToolTip}>{cellText}</td>)
+      rowCells.push(<td css={tableStyle} title={cellToolTip} key='stat-sig'>{cellText}</td>)
     }
     return rowCells
   };
