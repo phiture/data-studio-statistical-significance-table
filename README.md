@@ -55,12 +55,11 @@ the table will automatically display an additional **Statistical Significance** 
 ### Troubleshooting
 #### There is no **Statistical Significance** column
 This is because you are missing required columns.
-See step 4 in [Adding the table to your report](#adding-the-table-to-you-report)
+See [Column naming](#column-naming).
 
-#### The table displays **N/A**
+#### The Statistical Significance column displays **N/A**
 The data in this row is not valid data for calculating statistical significance.
-If you open your browser's JavaScript console you will see the error output
-which contains the exact reason for this.
+Hover over the cell to see more information.
 
 ## Development
 - [NodeJS](https://nodejs.org/en/)
