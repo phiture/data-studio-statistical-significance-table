@@ -113,15 +113,22 @@ const MyTable = props => {
     // statSigIndexes
     switch (field.name) {
       case 'Conversions':
+      case 'Target Conversions':
+      case 'Variant Conversions':
         statSigCellIndexes.variantConversions = i
         break
-      case 'Control Conversion':
+      case 'Control Conversions':
         statSigCellIndexes.controlConversions = i
         break
       case 'Unique Recipients':
+      case 'Sends':
+      case 'Sent':
+      case 'Target Sends':
+      case 'Variant Entries':
         statSigCellIndexes.variantVisitors = i
         break
       case 'Control Entries':
+      case 'Control Sends':
         statSigCellIndexes.controlVisitors = i
         break
     }

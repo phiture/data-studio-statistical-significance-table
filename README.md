@@ -10,6 +10,7 @@
 - [Usage](#usage)
   - [What you will need](#what-you-will-need)
   - [Adding the table to your report](#adding-the-table-to-you-report)
+  - [Column naming](#column-naming)
   - [Troubleshooting](#troubleshooting)
     - [There is no **Statistical Significance** column](#there-is-no-statistical-significance-column)
     - [The table displayes **N/A**](#the-table-displays-NA)
@@ -26,13 +27,30 @@
 1. [Add the table to your report by ID](https://support.google.com/datastudio/answer/9206527?hl=en#add-by-id),
 using `gs://data-studio-statistical-significance-table/prod` as the **Manifest path**.
 3. [Enable Community Visualizations in your data source](https://support.google.com/datastudio/answer/9206527?hl=en)
-4. Make sure you have a dimension or metric for each of the following (Note: Column naming must be exact):
-- **Unique Recipients**   - The number of non control group recipients
-- **Conversions**         - The number of non control group conversions
-- **Control Entries**     - The number of control group recipients
-- **Control Conversion**  - The number of control group conversions
 
-The table will then automatically display an additional **Statistical Significance** column.
+### Column naming
+The table needs the following data to calculate statistical significance.
+In order to specify which data the table should use, please make sure
+you have one dimension or metric for each category below (named as specified).
+In the case that multiple column names match the same category, the last matching column will be used.
+- **Unique Recipients**   - The number of non control group recipients
+  - Unique Recipients
+  - Sends
+  - Sent
+  - Target Sends
+  - Variant Entries
+- **Conversions**         - The number of non control group conversions
+  - Conversions
+  - Target Conversions
+  - Variant Conversions
+- **Control Entries**     - The number of control group recipients
+  - Control Entries
+  - Control Sends
+- **Control Conversions**  - The number of control group conversions
+  - Control Conversions
+
+If at least one dimension or metric from each category is present
+the table will automatically display an additional **Statistical Significance** column.
 
 ### Troubleshooting
 #### There is no **Statistical Significance** column
