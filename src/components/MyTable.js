@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import calculateSignificance from '../statisticalSignificance'
 import log from '../utils/log'
+import numberWithCommas from '../utils/numberWithCommas'
 
 import {DataContext} from '../utils/DataContext';
 
@@ -16,7 +17,7 @@ const MyTable = props => {
   const {value: data} = React.useContext(DataContext);
 
   const {fields, tables, style} = data;
-  // log.dev(data)
+  // log.debug('table render', data)
   const allFields = fields.dimID.concat(fields.metricID);
 
   // Use default value as an initial backup
@@ -33,8 +34,18 @@ const MyTable = props => {
     const rowCells = []
     // Data cells
     for (const i in allColumns) {
+      // log.dev(allFields[i])
+      let cellText = allColumns[i]
+      switch (allFields[i].type) {
+        case 'PERCENT':
+          cellText = `${Math.floor(cellText * 100)}%`
+          break;
+        case 'NUMBER':
+          cellText = numberWithCommas(cellText)
+          break
+      }
       rowCells.push(<td css={tableStyle} key={i}>
-        {allColumns[i]}
+        {cellText}
       </td>)
     }
     // Significance cells
