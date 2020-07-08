@@ -15,10 +15,8 @@ const MyTable = props => {
 
   // DataContext was populated by the <DataProvider> in index.js
   const {value: data} = React.useContext(DataContext);
-
   const {fields, tables, style} = data;
   // log.debug('table render', data)
-  const allFields = fields.dimID.concat(fields.metricID);
 
   // Styling
   const {
@@ -56,6 +54,9 @@ const MyTable = props => {
   const tableBodyCellStyle = css`
     padding: 8px;
   `
+  // Table JSX
+  const allFields = fields.dimID.concat(fields.metricID);
+  const jsxHeaderCells = allFields.map(field => <th key={field.id} css={tableHeaderCellStyle}>{field.name}</th>)
 
   const getRow = (tableRow, toCalculateSignificance, toCalculateConfidence, ssi) => {
     const allColumns = tableRow.dimID.concat(tableRow.metricID);
@@ -111,42 +112,22 @@ const MyTable = props => {
   };
 
   // Process fields (header row) to get indexes for significance calculation
-  const jsxHeaderCells = []
-  const statSigCellIndexes = {}
-  for (const i in allFields) {
-    // jsxHeaderCells
-    const field = allFields[i]
-    jsxHeaderCells.push(<th key={field.id} css={tableHeaderCellStyle}>{field.name}</th>)
-    // statSigIndexes
-    switch (field.name) {
-      case 'Conversions':
-      case 'Target Conversions':
-      case 'Variant Conversions':
-        statSigCellIndexes.variantConversions = i
-        break
-      case 'Control Conversions':
-        statSigCellIndexes.controlConversions = i
-        break
-      case 'Unique Recipients':
-      case 'Sends':
-      case 'Sent':
-      case 'Target Sends':
-      case 'Variant Entries':
-        statSigCellIndexes.variantVisitors = i
-        break
-      case 'Control Entries':
-      case 'Control Sends':
-        statSigCellIndexes.controlVisitors = i
-        break
+  const getColumnNames = columnData => (columnData.value || columnData.defaultValue).split(',').map(columnName => columnName.trim())
+  const getStatSigIndex = columnData => {
+    for (const name of getColumnNames(columnData)) {
+      const columnIndex = allFields.map(f => f.name.toLowerCase()).indexOf(name.toLowerCase())
+      if (columnIndex !== -1) return columnIndex
     }
+  }
+  const statSigCellIndexes = {
+    variantConversions: getStatSigIndex(style.variantConversionsColumnNames),
+    controlConversions: getStatSigIndex(style.controlConversionsColumnNames),
+    variantVisitors: getStatSigIndex(style.variantVisitorsColumnNames),
+    controlVisitors: getStatSigIndex(style.controlVisitorsColumnNames),
   }
   let toCalculateSignificance = false
   let toCalculateConfidence = false
-  console.log(style)  // TODOD: Delette
-  log.debug('sig', calculateSignificanceUserInput)  // TODOD: Delette
-  log.debug('conf', calculateConfidenceUserInput)  // TODOD: Delette
   if (statSigCellIndexes.controlVisitors && statSigCellIndexes.controlConversions && statSigCellIndexes.variantVisitors && statSigCellIndexes.variantConversions) {
-    log.debug('columns exist', 'foo')  // TODOD: Delette
     if (calculateSignificanceUserInput.value) toCalculateSignificance = true
     if (calculateConfidenceUserInput.value) toCalculateConfidence = true
   } else {

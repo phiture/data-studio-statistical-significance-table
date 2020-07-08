@@ -115,6 +115,36 @@
           "defaultValue": false
         }
       ]
+    },
+    {
+      "id": "columnNames",
+      "label": "Columns to use for calculation (comma separated in order of preference)",
+      "elements": [
+        {
+          "id": "variantVisitorsColumnNames",
+          "label": "Variant visitors",
+          "type": "TEXTINPUT",
+          "defaultValue": "Unique Recipients, Sends, Sent, Target Sends, Variant Entries"
+        },
+        {
+          "id": "variantConversionsColumnNames",
+          "label": "Variant conversions",
+          "type": "TEXTINPUT",
+          "defaultValue": "Conversions, Target Conversions, Variant Conversions"
+        },
+        {
+          "id": "controlVisitorsColumnNames",
+          "label": "Control visitors",
+          "type": "TEXTINPUT",
+          "defaultValue": "Control Entries, Control Sends"
+        },
+        {
+          "id": "controlConversionsColumnNames",
+          "label": "Control conversions",
+          "type": "TEXTINPUT",
+          "defaultValue": "Control Conversions"
+        }
+      ]
     }
   ]
 }
