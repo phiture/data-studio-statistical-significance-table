@@ -133,8 +133,8 @@ const MyTable = props => {
   } else {
     log.info('Missing required fields. The table will still work.')
   }
-  if (toCalculateConfidence) jsxHeaderCells.push(<th key={'stat-con'} css={tableHeaderCellStyle}>Statistical Confidence</th>)
-  if (toCalculateSignificance) jsxHeaderCells.push(<th key={'stat-sig'} css={tableHeaderCellStyle}>Statistical Significance</th>)
+  if (toCalculateConfidence) jsxHeaderCells.push(<th key={'stat-con'} css={tableHeaderCellStyle}>{style.statisticalConfidenceColumnName.value}</th>)
+  if (toCalculateSignificance) jsxHeaderCells.push(<th key={'stat-sig'} css={tableHeaderCellStyle}>{style.statisticalSignificanceColumnName.value}</th>)
 
   return (
     <table>

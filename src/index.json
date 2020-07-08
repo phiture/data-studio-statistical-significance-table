@@ -109,10 +109,22 @@
           "defaultValue": true
         },
         {
+          "id": "statisticalConfidenceColumnName",
+          "label": "Statistical confidence column name",
+          "type": "TEXTINPUT",
+          "defaultValue": "Statistical Confidence"
+        },
+        {
           "id": "calculateStatisticalSignificance",
           "label": "Calculate statistical significance (p-value)",
           "type": "CHECKBOX",
           "defaultValue": false
+        },
+        {
+          "id": "statisticalSignificanceColumnName",
+          "label": "Statistical significance column name",
+          "type": "TEXTINPUT",
+          "defaultValue": "Statistical Significance"
         }
       ]
     },
