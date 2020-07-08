@@ -31,7 +31,9 @@ const MyTable = props => {
     bodyFontSize,
     bodyFontFamily,
     bodyBackgroundColor,
-    bodyBorderColor
+    bodyBorderColor,
+    calculateStatisticalSignificance: calculateSignificanceUserInput,
+    calculateStatisticalConfidence: calculateConfidenceUserInput,
   } = style
   const tableHeaderStyle = css`
     color: ${headerFontColor.value.color || headerFontColor.defaultValue.color};
@@ -55,7 +57,7 @@ const MyTable = props => {
     padding: 8px;
   `
 
-  const getRow = (tableRow, ssi) => {
+  const getRow = (tableRow, toCalculateSignificance, toCalculateConfidence, ssi) => {
     const allColumns = tableRow.dimID.concat(tableRow.metricID);
     const rowCells = []
     // Data cells
@@ -75,7 +77,7 @@ const MyTable = props => {
       </td>)
     }
     // Significance cells
-    if (ssi) {
+    if (toCalculateSignificance || toCalculateConfidence) {
       const controlVisitors = allColumns[ssi.controlVisitors]
       const controlConversions = allColumns[ssi.controlConversions]
       const variantVisitors = allColumns[ssi.variantVisitors]
@@ -84,12 +86,12 @@ const MyTable = props => {
         control: { visitors: controlVisitors, conversions: controlConversions },
         variant: { visitors: variantVisitors, conversions: variantConversions },
       }
-      let cellText = 'N/A'
+      let statSig = undefined
       let cellToolTip
       if (!isNaN(controlVisitors) && !isNaN(controlConversions) && !isNaN(variantVisitors) && !isNaN(variantConversions)) {
         try {
-          const statSig = calculateSignificance(calculationData)
-          cellText = `${Math.floor(statSig * 100)}%`
+          statSig = calculateSignificance(calculationData)
+          // statSigCellText = `${Math.floor(statSig * 100)}%`
         } catch (e) {
           // log.error('Cannot calculate statistical significance.', calculationData, e.message)
           cellToolTip = e.message
@@ -98,7 +100,12 @@ const MyTable = props => {
         // log.error('Invalid values (non numeric)', calculationData)
         cellToolTip = 'Invalid values (non numeric)'
       }
-      rowCells.push(<td css={tableBodyCellStyle} title={cellToolTip} key='stat-sig'>{cellText}</td>)
+      if (toCalculateConfidence) rowCells.push(<td css={tableBodyCellStyle} title={cellToolTip} key='stat-con'>
+        {statSig !== undefined ? `${Math.floor((1 - statSig) * 100)}%` : 'N/A'}
+      </td>)
+      if (toCalculateSignificance) rowCells.push(<td css={tableBodyCellStyle} title={cellToolTip} key='stat-sig'>
+        {statSig !== undefined ? `${Math.floor(statSig * 100)}%` : 'N/A'}
+      </td>)
     }
     return rowCells
   };
@@ -134,11 +141,18 @@ const MyTable = props => {
     }
   }
   let toCalculateSignificance = false
+  let toCalculateConfidence = false
+  console.log(style)  // TODOD: Delette
+  log.debug('sig', calculateSignificanceUserInput)  // TODOD: Delette
+  log.debug('conf', calculateConfidenceUserInput)  // TODOD: Delette
   if (statSigCellIndexes.controlVisitors && statSigCellIndexes.controlConversions && statSigCellIndexes.variantVisitors && statSigCellIndexes.variantConversions) {
-    toCalculateSignificance = true
+    log.debug('columns exist', 'foo')  // TODOD: Delette
+    if (calculateSignificanceUserInput.value) toCalculateSignificance = true
+    if (calculateConfidenceUserInput.value) toCalculateConfidence = true
   } else {
     log.info('Missing required fields. The table will still work.')
   }
+  if (toCalculateConfidence) jsxHeaderCells.push(<th key={'stat-con'} css={tableHeaderCellStyle}>Statistical Confidence</th>)
   if (toCalculateSignificance) jsxHeaderCells.push(<th key={'stat-sig'} css={tableHeaderCellStyle}>Statistical Significance</th>)
 
   return (
@@ -150,7 +164,7 @@ const MyTable = props => {
       </thead>
       <tbody css={tableBodyStyle}>
         {tables.DEFAULT.map((row, i) => (
-          <tr key={i}>{getRow(row, toCalculateSignificance ? statSigCellIndexes : undefined)}</tr>
+          <tr key={i}>{getRow(row, toCalculateSignificance, toCalculateConfidence, statSigCellIndexes)}</tr>
         ))}
       </tbody>
     </table>

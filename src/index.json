@@ -97,6 +97,24 @@
           }
         }
       ]
+    },
+    {
+      "id": "calculation",
+      "label": "Calculation",
+      "elements": [
+        {
+          "id": "calculateStatisticalConfidence",
+          "label": "Calculate statistical confidence (1 - p-value)",
+          "type": "CHECKBOX",
+          "defaultValue": true
+        },
+        {
+          "id": "calculateStatisticalSignificance",
+          "label": "Calculate statistical significance (p-value)",
+          "type": "CHECKBOX",
+          "defaultValue": false
+        }
+      ]
     }
   ]
 }
