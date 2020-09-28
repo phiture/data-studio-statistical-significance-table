@@ -65,7 +65,7 @@ const MyTable = props => {
     for (const i in allColumns) {
       // log.dev(allFields[i])
       let cellText = allColumns[i]
-      switch (allFields[i].type) {
+      if (cellText || cellText === 0) switch (allFields[i].type) {  // Leave null, '', NaN, and undefined unchanged.
         case 'PERCENT':
           cellText = `${numberWithCommas(Math.round(cellText * 10000) / 100)}%`  // Percent to 2 decimal places
           break
