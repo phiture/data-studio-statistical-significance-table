@@ -95,7 +95,7 @@ Changes will be reflected instantly.
 Deploy the visualization to your production folder.
 If you do this, `devMode` in
 [manifest.json](/src/manifest.json)
-is set to `true` and Data Studio will cache your visualization for
+is set to `false` and Data Studio will cache your visualization for
 12 hours. Read
 [Google's documentation](https://developers.google.com/datastudio/visualization/caching)
 for more information.
