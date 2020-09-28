@@ -62,7 +62,7 @@ export const message = {
       },
       {
         id: 'qt_8isx6asdf0xvd',
-        name: 'Control Conversion',
+        name: 'Control Conversions',
         type: 'PERCENT',
         concept: 'METRIC',
       },
@@ -134,6 +134,30 @@ export const message = {
         "color": "#ffffff",
         "opacity": 0
       }
+    },
+    variantConversionsColumnNames: {
+      value: 'Unique Recipients, Sends, Target Sends, Variant Entries',
+    },
+    controlConversionsColumnNames: {
+      value: 'Conversions, Target Conversions Variant Conversions',
+    },
+    variantVisitorsColumnNames: {
+      value: 'Control Entries, Control Sends',
+    },
+    controlVisitorsColumnNames: {
+      value: 'Control Conversions',
+    },
+    calculateStatisticalSignificance: {
+      value: true
+    },
+    calculateStatisticalConfidence: {
+      value: true
+    },
+    statisticalConfidenceColumnName: {
+      value: 'Statistical Confidence'
+    },
+    statisticalSignificanceColumnName: {
+      value: 'Statistical Significance'
     },
   },
 }
